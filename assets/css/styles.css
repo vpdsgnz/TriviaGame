@@ -1,0 +1,13 @@
+body {
+    background-image: url(../images/memphis-colorful.png);
+    background-repeat: repeat;
+}
+
+.row {
+    margin: 30px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2em;
+}
