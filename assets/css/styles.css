@@ -5,6 +5,8 @@ body {
 
 .row {
     margin: 30px;
+    padding: 20px;
+    background-color: #fdf4b9;
 }
 
 h1 {
