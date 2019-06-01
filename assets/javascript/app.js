@@ -4,7 +4,60 @@ $(document).ready(function(){
     // });
     // $("#show").click(function(){
     //   $("p").show();
-    // });
+	// });
+	
+var myQuestions = [
+	{
+		question: "How did Daenerys Targaryen eventually hatch her dragon eggs?", 
+		choices: ["In a lightning storm", "In a funeral pyre", "In a fireplace", "In a frozen cave"],
+		answer: 1,
+	},
+	{
+		question: "Which Stark family direwolf was killed in retaliation for an attack on Prince Joffrey?", 
+		choices: ["Ghost", "Lady", "Nymeria", "Summer"],
+		answer: 1,
+	},
+	{
+		question: "The phrase 'Valar Morghulis' or 'all men must die' is usually responded with:", 
+		choices: ["Valar Dohaeris or 'all men must serve'", "Valar Rohnas or 'all men must live'", "Valar GoGo or 'all men must dance'"],
+		answer: 0,
+	},
+	{
+		question: "'It's nothing' were the last words of this infamous character:", 
+		choices: ["Renly Baratheon", "Tywin Lannister", "Robb Stark", "King Joffrey"],
+		answer: 3,
+	},
+	{
+		question: "What is the only thing that can put out volatile Wildfire?", 
+		choices: ["Sand", "Water", "Dragon's blood", "Sunlight"],
+		answer: 0,
+	},
+	{
+		question: "Besides dragonglass, what is the only other substance capable of defeating White Walkers?", 
+		choices: ["Weirwood", "Wildfire", "Valyrian Steel", "Snowballs"],
+		answer: 2,
+	},
+	{
+		question: "How many times has Beric Dondarrion been brought back to life?", 
+		choices: ["Three times", "Five times", "Six times", "Seven times"],
+		answer: 2,
+	},
+	{
+		question: "Who shoots the flaming arrow that subsequently destroy's Stannis' fleet in Blackwater Bay?", 
+		choices: ["Tyrion Lannister", "King Joffrey", "Jaime Lannister", "Bronn"],
+		answer: 3,
+	},
+	{
+		question: "Arya's punishment for stealing from the Many-Face God is:", 
+		choices: ["Death", "Memory Loss", "Blindness", "Uncontrollable laughter"],
+		answer: 2,
+	},
+	{
+		question: "What was the name of Ned Stark's greatsword?", 
+		choices: ["Ice", "Oathkeeper", "Widow's Wail", "Northguard"],
+		answer: 0,
+	},
+];
 
 var correct = 0;
 var incorrect = 0;
@@ -13,6 +66,7 @@ var timer = 10;
 var intervalId;
 var running = false;
 runTimer();
+displayQuestion();
 
 function runTimer(){
 	if (!running) {
@@ -27,13 +81,24 @@ function countDown () {
 
 	if (timer === -1) {
 		stop();
-    $("#time-left").html("<h2>Time's Up!</h2>");
+		noAnswer++;
+		$("#time-left").html("<h2>Time's Up!</h2>");
+		$("#no-answer").html("<h3>No answer: " + noAnswer + "</h3>");
 	}	
 }
 
 function stop() {
 	running = false;
 	clearInterval(intervalId);
+}
+
+function displayQuestion() {
+	let current = myQuestions;
+	console.log(current);
+	for (var i = 0; i < myQuestions.length; i++) {
+		$("#quiz").html("<p>" + current.question[i] + "</p>");
+		console.log(current.question[i]);
+	}
 }
 
 });
