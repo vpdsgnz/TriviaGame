@@ -19,7 +19,7 @@ var myQuestions = [
 	},
 	{
 		question: "3. The phrase 'Valar Morghulis' or 'all men must die' is usually responded with:", 
-		choices: ["Valar Dohaeris or 'all men must serve'", "Valar Rohnas or 'all men must live'", "Valar GoGo or 'all men must dance'"],
+		choices: ["Valar Dohaeris or 'all men must serve'", "Valar Rohnas or 'all men must live'", "Valar GoGo or 'all men must dance'", "Valar Azor or 'all men must fight'"],
 		answer: 0,
 	},
 	{
@@ -59,14 +59,13 @@ var myQuestions = [
 	},
 ];
 
-var correct = 0;
-var incorrect = 0;
+var correctScore = 0;
+var incorrectScore = 0;
 var noAnswer = 0;
-var timer = 10;
+var timer = 20;
 var intervalId;
 var running = false;
 runTimer();
-// displayQuestion();
 buidlQuiz();
 
 function runTimer(){
@@ -77,31 +76,60 @@ function runTimer(){
 }
 
 function countDown () {
-	$("#time-left").html("<h3>Time remaining: " + timer + "</h3>");
 	timer --;
+	$("#time-left").html("<h3>Time remaining: " + timer + "</h3>");
 
-	if (timer === -1) {
+	if (timer === 0) {
 		stop();
-		noAnswer++;
 		$("#time-left").html("<h2>Time's Up!</h2>");
-		$("#no-answer").html("<h3>No answer: " + noAnswer + "</h3>");
 	}	
 }
 
 function stop() {
 	running = false;
 	clearInterval(intervalId);
+	check();
+	// checkQuiz();
 }
 
 function buidlQuiz() {
 
-	myQuestions.forEach(function(q){
+	for (var i = 0; i < myQuestions.length; i++) {
+		$("#quiz").append('<div class="question">' + myQuestions[i].question + '</div>');
+		$("#quiz").append('<div class="form-check"><input class="form-check-input" type="radio" name="radio-group' + i +'" id="radio' + i +'" value="0"><label class="form-check-label" for="radio' + i +'">'+ myQuestions[i].choices[0] +'</label></div>');
+		$("#quiz").append('<div class="form-check"><input class="form-check-input" type="radio" name="radio-group' + i +'" id="radio' + i +'" value="1"><label class="form-check-label" for="radio' + i +'">'+ myQuestions[i].choices[1] +'</label></div>');
+		$("#quiz").append('<div class="form-check"><input class="form-check-input" type="radio" name="radio-group' + i +'" id="radio' + i +'" value="2"><label class="form-check-label" for="radio' + i +'">'+ myQuestions[i].choices[2] +'</label></div>');
+		$("#quiz").append('<div class="form-check"><input class="form-check-input" type="radio" name="radio-group' + i +'" id="radio' + i +'" value="3"><label class="form-check-label" for="radio' + i +'">'+ myQuestions[i].choices[3] +'</label></div>');
+	}
 
-		$("#quiz").append("<h2>" + q.question + "</h2></br>");
-		// $("#quiz").append('<input type="radio" name="question" value="1">'+q.choices[options]);
-		// console.log(q.choices);
-		// console.log(q.answer);
-	})
+	$("#quiz").append('<button id="submit" class="btn btn-primary" type="submit">Submit</button>')
+	$("#submit").click(function(){
+      stop();
+    });
+} 
+
+
+function check() {
+	var pick;
+	var correct;
+	
+	for (var i = 0; i < myQuestions.length; i++) {
+		pick = parseInt($('input[id=radio'+i+']:checked', true).val());
+		correct = myQuestions[i].answer;
+
+		if (pick === correct) {
+			correctScore++;
+		}
+		else if (pick === "") {
+			noAnswer++;
+		}
+		else if (pick !== correct) {
+			incorrectScore++;
+		}
+	}
+	console.log("Correct: "+ correctScore);
+	console.log("Incorrect: " + incorrectScore);
+	console.log("Missed: " + noAnswer);
 }
 
 });
