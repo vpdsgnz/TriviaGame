@@ -1,10 +1,4 @@
 $(document).ready(function(){
-    // $("#hide").click(function(){
-    //   $("p").hide();
-    // });
-    // $("#show").click(function(){
-    //   $("p").show();
-	// });
 	
 var myQuestions = [
 	{
@@ -82,14 +76,14 @@ function countDown () {
 	if (timer === 0) {
 		stop();
 		$("#time-left").html("<h2>Time's Up!</h2>");
-	}	
+		results();
+	}
 }
 
 function stop() {
 	running = false;
 	clearInterval(intervalId);
 	check();
-	// checkQuiz();
 }
 
 function buidlQuiz() {
@@ -104,7 +98,8 @@ function buidlQuiz() {
 
 	$("#quiz").append('<button id="submit" class="btn btn-primary" type="submit">Submit</button>')
 	$("#submit").click(function(){
-      stop();
+	  stop();
+	  results();
     });
 } 
 
@@ -130,6 +125,13 @@ function check() {
 	console.log("Correct: "+ correctScore);
 	console.log("Incorrect: " + incorrectScore);
 	console.log("Missed: " + noAnswer);
+}
+
+function results() {
+	$("#quiz").empty();
+	$("#results").append("<h3>Correct: " + correctScore + "</h3>");
+	$("#results").append("<h3>Incorrect: " + incorrectScore + "</h3>");
+	$("#results").append("<h3>Unanswered: " + noAnswer + "</h3>");
 }
 
 });
