@@ -1,6 +1,7 @@
 body {
     background-image: url(../images/memphis-colorful.png);
     background-repeat: repeat;
+    font-family: 'Slabo 27px', serif;
 }
 
 .row {
