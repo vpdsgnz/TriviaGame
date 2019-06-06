@@ -22,3 +22,12 @@ h1 {
     overflow-x: hidden;
     padding-top: 20px;
 }
+
+.question {
+    padding: 15px 0px 5px;
+}
+
+.form-check {
+    line-height: 1.5em;
+    padding-left: 50px;
+}

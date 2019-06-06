@@ -56,7 +56,7 @@ var myQuestions = [
 var correctScore = 0;
 var incorrectScore = 0;
 var noAnswer = 0;
-var timer = 20;
+var timer = 40;
 var intervalId;
 var running = false;
 runTimer();
@@ -107,28 +107,50 @@ function buidlQuiz() {
 function check() {
 	var pick;
 	var correct;
+	var name;
+	var flag = true;
 	
 	for (var i = 0; i < myQuestions.length; i++) {
-		pick = parseInt($('input[id=radio'+i+']:checked', true).val());
+		pick = parseInt($('input[id=radio'+i+']:checked').val());
 		correct = myQuestions[i].answer;
 
 		if (pick === correct) {
 			correctScore++;
 		}
-		else if (pick === "") {
+		else if (pick === " ") {
 			noAnswer++;
 		}
 		else if (pick !== correct) {
 			incorrectScore++;
 		}
+
+		// pick = $('input[id=radio'+i+']:checked').val();
+		// var num = myQuestions[i].answer;
+		// correct = '' + num;
+
+		// if (pick === correct) {
+		// 	correctScore++;
+		// } else if (pick === "") {
+		// 	noAnswer++;
+		// } else if (pick !== correct) {
+		// 	{
+		// 		incorrectScore++;
+		// 	}
+		// }
 	}
-	console.log("Correct: "+ correctScore);
-	console.log("Incorrect: " + incorrectScore);
-	console.log("Missed: " + noAnswer);
+
+	$(':radio').each(function () {
+			name = $(this).attr('name');
+			if (flag && !$(':radio[name="' + name + '"]:checked').length) {
+					alert(name + ' group not checked');
+					flag = false;
+			}
+	});
+	return flag;
 }
 
 function results() {
-	$("#quiz").empty();
+	// $("#quiz").empty();
 	$("#results").append("<h3>Correct: " + correctScore + "</h3>");
 	$("#results").append("<h3>Incorrect: " + incorrectScore + "</h3>");
 	$("#results").append("<h3>Unanswered: " + noAnswer + "</h3>");
